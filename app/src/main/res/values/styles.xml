@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+    <style name="MDCAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#EC2B4A</item>
+        <item name="colorPrimaryDark">#C9253D</item>
+        <item name="colorAccent">#ffff5722</item>
+    </style>
+
+    <style name="PlayMusicTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="colorPrimary">#EC2B4A</item>
+        <item name="colorPrimaryDark">#C9253D</item>
+        <item name="colorAccent">#ffff5722</item>
+    </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabText</item>
+        <item name="tabSelectedTextColor">#fff</item>
+    </style>
+
+    <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#D8D8D8</item>
+    </style>
+
+</resources>

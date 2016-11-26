@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/search_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                cardview:cardCornerRadius="10dp"
+                >
+
+            <!--<EditText-->
+                <!--android:id="@+id/edt_search"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="#fff"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:drawablePadding="10dp"-->
+                <!--android:textSize="14sp"-->
+                <!--android:hint="Search on Soundcloud"-->
+                <!--android:drawableLeft="@drawable/ic_tab_search"-->
+                <!--android:imeOptions="actionSearch"-->
+                <!--android:inputType="textFilter"-->
+                <!--/>-->
+                <LinearLayout
+                    android:id="@+id/search_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/image_search"
+                        android:layout_width="@dimen/height_image_home"
+                        android:layout_height="@dimen/height_image_home"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_search"
+                        android:visibility="visible" />
+                    <EditText
+                        android:imeOptions="actionSearch"
+                        android:id="@+id/edt_search"
+                        android:layout_width="0dp"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:hint="@string/search_online"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:layout_marginLeft="7dp"
+                        android:paddingLeft="2dp"
+                        android:textSize="18dp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp">
+
+                        <ImageView
+                            android:id="@+id/image_voice"
+                            android:layout_width="@dimen/height_image_home"
+                            android:layout_height="@dimen/height_image_home"
+                            android:layout_gravity="center"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:src="@drawable/ic_voice"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/image_clear"
+                            android:layout_width="@dimen/height_image_cancel"
+                            android:layout_height="@dimen/height_image_cancel"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_close"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <View android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/toolbar_drop_shadow"/>
+
+    <ListView
+        android:background="#fff"
+        android:divider="@null"
+        android:id="@+id/search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@drawable/ripple_effect"></ListView>
+</LinearLayout>
