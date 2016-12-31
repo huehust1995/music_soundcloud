@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import attt.musicteam.R;
-import attt.musicteam.sharepreference.StateSharePreference;
 import attt.musicteam.ui.fragment.GenreFragment;
 import attt.musicteam.ui.fragment.HomeFragment;
 import attt.musicteam.ui.fragment.MoreFragment;
@@ -29,20 +28,15 @@ public class MainActivity extends AppCompatActivity {
     public Fragment fragment;
     public FragmentTransaction transaction;
     public LayoutBackground setLayoutBackground;
-    public StateSharePreference stateSp;
     public String state;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        stateSp = new StateSharePreference();
-        state = stateSp.getState(this);
-
         initView();
 
     }
-
 
 
     public void initView() {
@@ -65,23 +59,8 @@ public class MainActivity extends AppCompatActivity {
         tvGenre = (TextView) findViewById(R.id.txt_tab_genre);
         tvSearch = (TextView) findViewById(R.id.txt_tab_search);
         tvMore = (TextView) findViewById(R.id.txt_tab_more);
+        initHomeFragment();
 
-
-        if (state.equals(StateSharePreference.START_SATATE) || state.equals(StateSharePreference.HOME_STATE)) {
-            initHomeFragment();
-        } else if (state.equals(StateSharePreference.PLAYLIST_STATE)) {
-            initPlaylistFragment();
-        } else if (state.equals(StateSharePreference.GENRE_STATE)) {
-            initGenreFragment();
-        } else if (state.equals(StateSharePreference.SEARCH_STATE)) {
-            //initSearchFragment();
-        } else if (state.equals(StateSharePreference.MORE_STATE)) {
-            initMoreFragment();
-        } else if (state.equals(StateSharePreference.HISTORY_STATE)) {
-            initHistoryFragment();
-        } else {
-            initHomeFragment();
-        }
 
         tabHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         tabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 initSearchFragment();
+                initSearchFragment();
             }
         });
         tabMore.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initHomeFragment() {
-        stateSp.saveState(this, StateSharePreference.HOME_STATE);
         setLayoutBackground.HomeLayoutFocus(btnHome, tvHome);
         setLayoutBackground.PlaylistLayout(btnPlaylist, tvPlaylist);
         setLayoutBackground.GenreLayout(btnGenre, tvGenre);
@@ -128,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initPlaylistFragment() {
-        stateSp.saveState(this, StateSharePreference.PLAYLIST_STATE);
         setLayoutBackground.HomeLayout(btnHome, tvHome);
         setLayoutBackground.PlaylistLayoutFocus(btnPlaylist, tvPlaylist);
         setLayoutBackground.GenreLayout(btnGenre, tvGenre);
@@ -140,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initGenreFragment() {
-        stateSp.saveState(this, StateSharePreference.GENRE_STATE);
         setLayoutBackground.HomeLayout(btnHome, tvHome);
         setLayoutBackground.PlaylistLayout(btnPlaylist, tvPlaylist);
         setLayoutBackground.GenreLayoutFocus(btnGenre, tvGenre);
@@ -151,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public void initSearchFragment(){
-        stateSp.saveState(this, StateSharePreference.SEARCH_STATE);
+    public void initSearchFragment() {
         setLayoutBackground.HomeLayout(btnHome, tvHome);
         setLayoutBackground.PlaylistLayout(btnPlaylist, tvPlaylist);
         setLayoutBackground.GenreLayout(btnGenre, tvGenre);
@@ -164,19 +139,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initMoreFragment() {
-        stateSp.saveState(this, StateSharePreference.MORE_STATE);
-        setLayoutBackground.HomeLayout(btnHome, tvHome);
-        setLayoutBackground.PlaylistLayout(btnPlaylist, tvPlaylist);
-        setLayoutBackground.GenreLayout(btnGenre, tvGenre);
-        setLayoutBackground.SearchLayout(btnSearch, tvSearch);
-        setLayoutBackground.MoreLayoutFocus(btnMore, tvMore);
-        fragment = new MoreFragment().newInstance();
-        transaction = getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment);
-        transaction.commit();
-    }
-
-    public void initHistoryFragment() {
-        stateSp.saveState(this, StateSharePreference.HISTORY_STATE);
         setLayoutBackground.HomeLayout(btnHome, tvHome);
         setLayoutBackground.PlaylistLayout(btnPlaylist, tvPlaylist);
         setLayoutBackground.GenreLayout(btnGenre, tvGenre);

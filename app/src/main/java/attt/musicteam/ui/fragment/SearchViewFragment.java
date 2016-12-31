@@ -40,8 +40,6 @@ import attt.musicteam.R;
 import attt.musicteam.sharepreference.HistorySharePreference;
 import attt.musicteam.sharepreference.NowPlayingSharePreference;
 import attt.musicteam.sharepreference.PlaylistSharePreference;
-import attt.musicteam.sharepreference.SearchSharePreference;
-import attt.musicteam.sharepreference.StateSharePreference;
 import attt.musicteam.ui.PlayMusicActivity;
 import attt.musicteam.ui.adapter.ListSongAdapter;
 import attt.musicteam.ui.adapter.PlaylistAdapter;
@@ -64,8 +62,6 @@ public class SearchViewFragment extends Fragment {
     private LinearLayout layoutPlay, layoutAddPlaylist, layoutInfo, layoutCancel;
     private DialogPlus dialogPlus;
     private HistorySharePreference historySong;
-    private StateSharePreference stateSp;
-    private SearchSharePreference searchSp;
     private NowPlayingSharePreference nowPlayingSp;
 
     private ListView listView;
@@ -90,10 +86,8 @@ public class SearchViewFragment extends Fragment {
         imgVoice.setVisibility(View.VISIBLE);
         listSongs = new ArrayList<SongItem>();
         historySong = new HistorySharePreference();
-        stateSp = new StateSharePreference();
-        searchSp = new SearchSharePreference();
         nowPlayingSp = new NowPlayingSharePreference();
-        if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING && stateSp.getState(getActivity()) == StateSharePreference.SEARCH_STATE) {
+        if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING) {
             // listSongs = searchSp.getSearchSongs(getActivity());
         } else {
             listSongs = new ArrayList<SongItem>();
@@ -234,7 +228,6 @@ public class SearchViewFragment extends Fragment {
             SongItem songItem = new SongItem(name, genre, imgCover, new Variables().timeTrack(time), id, genre, createdAt, likesCount);
             listSongs.add(songItem);
         }
-        searchSp.saveSearchSongs(getActivity(), listSongs);
         adapter.notifyDataSetChanged();
     }
 
@@ -309,7 +302,6 @@ public class SearchViewFragment extends Fragment {
 
     public void playMusic(SongItem songItem, int position) {
         if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.NOT_PLAYING) {
-            stateSp.saveState(getActivity(), StateSharePreference.SEARCH_STATE);
             historySong.addHistorySong(getActivity(), songItem);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
@@ -319,7 +311,6 @@ public class SearchViewFragment extends Fragment {
             getActivity().startActivity(intent);
             getActivity().finish();
         } else {
-            stateSp.saveState(getActivity(), StateSharePreference.SEARCH_STATE);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
             intent.putExtra("position", position);

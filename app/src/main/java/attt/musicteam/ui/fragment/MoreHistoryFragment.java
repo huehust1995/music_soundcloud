@@ -34,7 +34,6 @@ import attt.musicteam.R;
 import attt.musicteam.sharepreference.HistorySharePreference;
 import attt.musicteam.sharepreference.NowPlayingSharePreference;
 import attt.musicteam.sharepreference.PlaylistSharePreference;
-import attt.musicteam.sharepreference.StateSharePreference;
 import attt.musicteam.ui.PlayMusicActivity;
 import attt.musicteam.ui.adapter.HistoryAdapter;
 import attt.musicteam.ui.adapter.PlaylistAdapter;
@@ -62,7 +61,6 @@ public class MoreHistoryFragment extends Fragment {
     //    public List<SongItem> historySongs;
     public HistorySharePreference historySharePreference;
     public NowPlayingSharePreference nowPlayingSp;
-    public StateSharePreference stateSp;
     public ImageButton btnEdit;
 
     public MoreHistoryFragment newInstance() {
@@ -81,7 +79,6 @@ public class MoreHistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_more_history, null);
         historySharePreference = new HistorySharePreference();
         nowPlayingSp = new NowPlayingSharePreference();
-        stateSp = new StateSharePreference();
         btnEdit = (ImageButton) view.findViewById(R.id.btn_edit);
         btnBack = (ImageButton) view.findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +237,6 @@ public class MoreHistoryFragment extends Fragment {
 
     public void playMusic(SongItem songItem, int position) {
         if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.NOT_PLAYING) {
-            stateSp.saveState(getActivity(), StateSharePreference.HISTORY_STATE);
             historySharePreference.addHistorySong(getActivity(), songItem);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
@@ -250,7 +246,6 @@ public class MoreHistoryFragment extends Fragment {
             getActivity().startActivity(intent);
             getActivity().finish();
         } else {
-            stateSp.saveState(getActivity(), StateSharePreference.HISTORY_STATE);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
             intent.putExtra("position", position);

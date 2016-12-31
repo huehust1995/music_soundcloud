@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -36,11 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import attt.musicteam.R;
-import attt.musicteam.sharepreference.GenreSharePreference;
 import attt.musicteam.sharepreference.HistorySharePreference;
 import attt.musicteam.sharepreference.NowPlayingSharePreference;
 import attt.musicteam.sharepreference.PlaylistSharePreference;
-import attt.musicteam.sharepreference.StateSharePreference;
 import attt.musicteam.ui.PlayMusicActivity;
 import attt.musicteam.ui.adapter.ListSongAdapter;
 import attt.musicteam.ui.adapter.PlaylistAdapter;
@@ -78,8 +75,6 @@ public class GenreDetailFragment extends Fragment {
     public GenreItem genreItem;
 
     public NowPlayingSharePreference nowPlayingSp;
-    public StateSharePreference stateSp;
-    public GenreSharePreference genreSp;
     public HistorySharePreference historySong;
 
     public GenreDetailFragment newInstance(GenreItem genreItem){
@@ -121,9 +116,7 @@ public class GenreDetailFragment extends Fragment {
     }
 
     public void initComponent(View view){
-        genreSp = new GenreSharePreference();
         nowPlayingSp = new NowPlayingSharePreference();
-        stateSp = new StateSharePreference();
         historySong = new HistorySharePreference();
 
         pDialog = new ProgressDialogNoTitle(getActivity());
@@ -164,7 +157,6 @@ public class GenreDetailFragment extends Fragment {
                         listSongs.add(songItem);
 
                     }
-                    genreSp.saveGenreSongs(getActivity(), listSongs);
                     adapter.notifyDataSetChanged();
                 }catch (Exception e){
 
@@ -269,7 +261,6 @@ public class GenreDetailFragment extends Fragment {
 
     public void playMusic(SongItem songItem, int position){
         if(nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.NOT_PLAYING){
-            stateSp.saveState(getActivity(), StateSharePreference.GENRE_STATE);
             historySong.addHistorySong(getActivity(), songItem);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
@@ -279,7 +270,6 @@ public class GenreDetailFragment extends Fragment {
             getActivity().startActivity(intent);
             getActivity().finish();
         } else if(nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING){
-            stateSp.saveState(getActivity(), StateSharePreference.GENRE_STATE);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
             intent.putExtra("position", position);

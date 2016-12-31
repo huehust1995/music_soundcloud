@@ -32,7 +32,6 @@ import attt.musicteam.R;
 import attt.musicteam.sharepreference.HistorySharePreference;
 import attt.musicteam.sharepreference.NowPlayingSharePreference;
 import attt.musicteam.sharepreference.PlaylistSharePreference;
-import attt.musicteam.sharepreference.StateSharePreference;
 import attt.musicteam.ui.PlayMusicActivity;
 import attt.musicteam.ui.adapter.PlaylistAdapter;
 import attt.musicteam.ui.item.PlaylistItem;
@@ -53,7 +52,6 @@ public class PlaylistFragment extends Fragment {
     private PlaylistSharePreference playlistSharePreference;
     private boolean checkPlaylistExisted;
 
-    private StateSharePreference stateSp;
     private NowPlayingSharePreference nowPlayingSp;
     private HistorySharePreference historySp;
 
@@ -72,7 +70,6 @@ public class PlaylistFragment extends Fragment {
 
         playlistSharePreference = new PlaylistSharePreference();
         nowPlayingSp = new NowPlayingSharePreference();
-        stateSp = new StateSharePreference();
         historySp = new HistorySharePreference();
 
         if(nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING){
@@ -103,7 +100,6 @@ public class PlaylistFragment extends Fragment {
         btnNowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stateSp.saveState(getActivity(), StateSharePreference.PLAYLIST_STATE);
                 getActivity().finish();
             }
         });
@@ -135,7 +131,6 @@ public class PlaylistFragment extends Fragment {
                         listSongs = playlistSharePreference.getSongsInPlaylist(getActivity(), playlistName);
                         if(listSongs != null) {
                             if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.NOT_PLAYING) {
-                                stateSp.saveState(getActivity(), StateSharePreference.PLAYLIST_STATE);
                                 historySp.addHistorySong(getActivity(), listSongs.get(0));
                                 Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
                                 intent.putExtra("songItem", listSongs.get(0));
@@ -145,7 +140,6 @@ public class PlaylistFragment extends Fragment {
                                 getActivity().startActivity(intent);
                                 getActivity().finish();
                             } else if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING) {
-                                stateSp.saveState(getActivity(), StateSharePreference.PLAYLIST_STATE);
                                 historySp.addHistorySong(getActivity(), listSongs.get(0));
                                 Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
                                 intent.putExtra("songItem", listSongs.get(0));

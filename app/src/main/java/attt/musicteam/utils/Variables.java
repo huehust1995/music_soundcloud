@@ -24,7 +24,6 @@ import java.util.List;
 import attt.musicteam.R;
 import attt.musicteam.sharepreference.HistorySharePreference;
 import attt.musicteam.sharepreference.PlaylistSharePreference;
-import attt.musicteam.sharepreference.StateSharePreference;
 import attt.musicteam.ui.PlayMusicActivity;
 import attt.musicteam.ui.adapter.PlaylistAdapter;
 import attt.musicteam.ui.item.GenreItem;
@@ -35,7 +34,7 @@ import attt.musicteam.ui.item.SongItem;
  * Created by Hue on 11/8/2016.
  */
 public class Variables {
-    public static final String CLIENT_ID = "c88fc9f0da3d025ed0f1ab91cab55a59";
+    public static final String CLIENT_ID = "bl1apZtLyJmxxKFeb675ucGae7xl76wY";
     public static final String HOME = "home";
     public static final String GENRE = "genre";
 
@@ -186,8 +185,6 @@ public class Variables {
 
     public void playMusic(Context context, SongItem songItem, int position) {
         //khoi tao service chay nhac
-        StateSharePreference stateSp = new StateSharePreference();
-        stateSp.saveState(context, StateSharePreference.SEARCH_STATE);
         Intent intent = new Intent(context, PlayMusicActivity.class);
 //        intent.putExtra("id", "mediaId");
         intent.putExtra("songItem", songItem);
