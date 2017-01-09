@@ -46,11 +46,7 @@ import attt.musicteam.ui.adapter.PlaylistAdapter;
 import attt.musicteam.ui.item.PlaylistItem;
 import attt.musicteam.ui.item.SongItem;
 import attt.musicteam.ui.progress_dialog.ProgressDialogNoTitle;
-import attt.musicteam.ui.search.SoundCloud;
-import attt.musicteam.ui.search.Track;
-import attt.musicteam.utils.Variables;
-import retrofit.Callback;
-import retrofit.RetrofitError;
+import attt.musicteam.ui.api.search.SearchRequest;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -67,7 +63,7 @@ public class SearchViewFragment extends Fragment {
     private ListView listView;
     private List<SongItem> listSongs;
     private ListSongAdapter adapter;
-    private List<Track> mTracks;
+    private List<SongItem> mTracks;
     private EditText edtSearch;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private ProgressDialogNoTitle pDialog;
@@ -100,7 +96,7 @@ public class SearchViewFragment extends Fragment {
         View.OnFocusChangeListener ofcListener = new MyFocusChangeListener();
         edtSearch.setOnFocusChangeListener(ofcListener);
 
-        mTracks = new ArrayList<Track>();
+        mTracks = new ArrayList<SongItem>();
         adapter = new ListSongAdapter(getActivity(), listSongs);
         listView.setAdapter(adapter);
 
@@ -111,12 +107,20 @@ public class SearchViewFragment extends Fragment {
                 initDialogPlus(songItem, position);
             }
         });
-
+        pDialog = new ProgressDialogNoTitle(getActivity());
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                pDialog.show();
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    getSearchData(edtSearch.getText().toString());
+                    new SearchRequest().searchAPI(edtSearch.getText().toString()).setSearchListener(new SearchRequest.SearchListener() {
+                        @Override
+                        public void onSuccess(List<SongItem> message) {
+                            updateTracks(message);
+                            Log.e("size track", message.size() + "");
+                            pDialog.dismiss();
+                        }
+                    });
                     return true;
                 }
                 return false;
@@ -182,50 +186,37 @@ public class SearchViewFragment extends Fragment {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
+                    pDialog.show();
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     edtSearch.setText(result.get(0));
-                    getSearchData(edtSearch.getText().toString());
+                    new SearchRequest().searchAPI(edtSearch.getText().toString()).setSearchListener(new SearchRequest.SearchListener() {
+                        @Override
+                        public void onSuccess(List<SongItem> message) {
+                            updateTracks(message);
+                            pDialog.dismiss();
+                        }
+                    });
                 }
                 break;
             }
         }
     }
 
-    //lay du lieu tu server
-    public void getSearchData(String queryString) {
-//        SoundCloudService service = SoundCloud.getService();
-        pDialog.show();
-        SoundCloud.getService().searchSongs(queryString, new Callback<List<Track>>() {
-            @Override
-            public void success(List<Track> tracks, retrofit.client.Response response) {
-                updateTracks(tracks);
-                Log.d("idxx", response.toString());
-                pDialog.dismiss();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-    }
-
-    private void updateTracks(List<Track> tracks) {
+    private void updateTracks(List<SongItem> tracks) {
         listSongs.clear();
         mTracks.clear();
         mTracks.addAll((tracks));
-
+        Log.e("size tracks", mTracks.size() + "");
         for (int i = 0; i < mTracks.size(); i++) {
-            String name = mTracks.get(i).getTitle();
-//            String singer = mTracks.get(i).getSinger();
+            String name = mTracks.get(i).getName();
             String imgCover = mTracks.get(i).getImgCover();
             String time = mTracks.get(i).getTime();
             String id = mTracks.get(i).getId() + "";
             String genre = mTracks.get(i).getGenre();
             String createdAt = mTracks.get(i).getCreatedAt();
             String likesCount = mTracks.get(i).getLikesCount();
-            SongItem songItem = new SongItem(name, genre, imgCover, new Variables().timeTrack(time), id, genre, createdAt, likesCount);
+            SongItem songItem = new SongItem(name, genre, imgCover, (time), id, genre, createdAt, likesCount);
             listSongs.add(songItem);
         }
         adapter.notifyDataSetChanged();

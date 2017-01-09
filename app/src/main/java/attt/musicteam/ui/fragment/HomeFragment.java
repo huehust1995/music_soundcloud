@@ -68,16 +68,16 @@ public class HomeFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.home_listview);
         historySong = new HistorySharePreference();
         nowPlayingSp = new NowPlayingSharePreference();
-//        if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING) {
-//            btnNowPlaying.setVisibility(View.VISIBLE);
-//        } else btnNowPlaying.setVisibility(View.INVISIBLE);
-//        btnNowPlaying.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                stateSp.saveState(getActivity(), StateSharePreference.PLAYLIST_STATE);
-//                getActivity().finish();
-//            }
-//        });
+
+        if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING) {
+            btnNowPlaying.setVisibility(View.VISIBLE);
+        } else btnNowPlaying.setVisibility(View.INVISIBLE);
+        btnNowPlaying.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
         rw = new ReadWriteData();
         String data = rw.readHomeData();
         listSongs = rw.parseData(data);

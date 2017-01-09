@@ -1,6 +1,7 @@
 package attt.musicteam.ui.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class PlaylistAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else holder = (Holder) convertView.getTag();
         PlaylistItem item = listPlaylist.get(position);
-        holder.imgCover.setImageResource(item.getImgCover());
+        Log.e("image", item.getImgCover() + "");
         holder.playlistName.setText(item.getName());
         if (item.getNumTracks() < 2) {
             holder.playlistNumTracks.setText(item.getNumTracks() + " track");

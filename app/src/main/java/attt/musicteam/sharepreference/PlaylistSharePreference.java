@@ -22,12 +22,12 @@ public class PlaylistSharePreference {
 
     public static final String PREFS_PLAYLIST_SONGS = "PLAYLIST_SONGS";
 
-    public PlaylistSharePreference(){
+    public PlaylistSharePreference() {
         super();
     }
 
     //khoi tao va luu danh sach playlist
-    public void savePlaylistItems(Context context, List<PlaylistItem> listPlaylistItems){
+    public void savePlaylistItems(Context context, List<PlaylistItem> listPlaylistItems) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
 
@@ -37,10 +37,10 @@ public class PlaylistSharePreference {
         editor.commit();
     }
 
-    public List<PlaylistItem> getPlaylistItems(Context context){
+    public List<PlaylistItem> getPlaylistItems(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         List<PlaylistItem> listPlaylistItems = new ArrayList<PlaylistItem>();
-        if(settings.contains(PLAYLIST)){
+        if (settings.contains(PLAYLIST)) {
             String jsonPlaylist = settings.getString(PLAYLIST, null);
             Gson gson = new Gson();
             PlaylistItem[] playlistItems = gson.fromJson(jsonPlaylist, PlaylistItem[].class);
@@ -50,9 +50,9 @@ public class PlaylistSharePreference {
         return listPlaylistItems;
     }
 
-    public void addPlaylistItem(Context context, PlaylistItem playlistItem){
+    public void addPlaylistItem(Context context, PlaylistItem playlistItem) {
         List<PlaylistItem> listPlaylistItems = getPlaylistItems(context);
-        if(listPlaylistItems == null){
+        if (listPlaylistItems == null) {
             listPlaylistItems = new ArrayList<PlaylistItem>();
         }
         listPlaylistItems.add(playlistItem);
@@ -60,7 +60,7 @@ public class PlaylistSharePreference {
     }
 
     //chinh sua ten playlist
-    public void editPlaylistItemName(Context context, int position, String newName){
+    public void editPlaylistItemName(Context context, int position, String newName) {
         List<PlaylistItem> listPlaylistItems = getPlaylistItems(context);
         String oldName = listPlaylistItems.get(position).getName();
         listPlaylistItems.get(position).setName(newName);
@@ -69,16 +69,16 @@ public class PlaylistSharePreference {
     }
 
     //chinh sua so bai hat trong playlist item
-    public void editPlaylistItemNumTracks(Context context, int position, int numTracks){
+    public void editPlaylistItemNumTracks(Context context, int position, int numTracks) {
         List<PlaylistItem> listPlaylistItems = getPlaylistItems(context);
         listPlaylistItems.get(position).setNumTracks(numTracks);
         savePlaylistItems(context, listPlaylistItems);
     }
 
-    public void removePlaylistItem(Context context, int position){
+    public void removePlaylistItem(Context context, int position) {
         List<PlaylistItem> listPlaylistItems = getPlaylistItems(context);
         Log.d("12345", listPlaylistItems.toString());
-        if(listPlaylistItems != null){
+        if (listPlaylistItems != null) {
             listPlaylistItems.remove(position);
 
         }
@@ -86,7 +86,7 @@ public class PlaylistSharePreference {
     }
 
     //khoi tao va luu bai hat vao playlist
-    public void saveSongItemToPlaylist(Context context, List<SongItem> listPlaylistSongs, String playlistName){
+    public void saveSongItemToPlaylist(Context context, List<SongItem> listPlaylistSongs, String playlistName) {
         SharedPreferences setting = context.getSharedPreferences(PREFS_PLAYLIST_SONGS, context.MODE_PRIVATE);
         SharedPreferences.Editor editor = setting.edit();
 
@@ -96,52 +96,52 @@ public class PlaylistSharePreference {
         editor.commit();
     }
 
-    public List<SongItem> getSongsInPlaylist(Context context, String playlistName){
+    public List<SongItem> getSongsInPlaylist(Context context, String playlistName) {
         SharedPreferences setting = context.getSharedPreferences(PREFS_PLAYLIST_SONGS, Context.MODE_PRIVATE);
         List<SongItem> listPlaylistSongs;
-        if(setting.contains(playlistName)){
+        if (setting.contains(playlistName)) {
             String jsonPlaylistSong = setting.getString(playlistName, null);
             Gson gson = new Gson();
             SongItem[] songItems = gson.fromJson(jsonPlaylistSong, SongItem[].class);
             listPlaylistSongs = Arrays.asList(songItems);
             listPlaylistSongs = new ArrayList<SongItem>(listPlaylistSongs);
-        }else {
+        } else {
             return null;
         }
         return listPlaylistSongs;
     }
 
-    public void addSongToPlaylist(Context context, SongItem songItem, String playlistname){
+    public void addSongToPlaylist(Context context, SongItem songItem, String playlistname) {
         List<SongItem> listPlaylistSongs = getSongsInPlaylist(context, playlistname);
-        if(listPlaylistSongs == null){
+        if (listPlaylistSongs == null) {
             listPlaylistSongs = new ArrayList<SongItem>();
         }
         listPlaylistSongs.add(songItem);
         saveSongItemToPlaylist(context, listPlaylistSongs, playlistname);
     }
 
-    public void removeSongFromPlaylist(Context context, SongItem songItem, String playlistName){
+    public void removeSongFromPlaylist(Context context, SongItem songItem, String playlistName) {
         List<SongItem> listPlaylistSongs = getSongsInPlaylist(context, playlistName);
-        if(listPlaylistSongs != null){
+        if (listPlaylistSongs != null) {
             listPlaylistSongs.remove(songItem);
             saveSongItemToPlaylist(context, listPlaylistSongs, playlistName);
         }
     }
 
-    public void removeAllSongInPlaylist(Context context, String playlistName){
+    public void removeAllSongInPlaylist(Context context, String playlistName) {
         List<SongItem> listPlaylistSongs = getSongsInPlaylist(context, playlistName);
-        if(listPlaylistSongs != null){
+        if (listPlaylistSongs != null) {
             listPlaylistSongs = new ArrayList<SongItem>();
             saveSongItemToPlaylist(context, listPlaylistSongs, playlistName);
         }
     }
 
     //cap nhat list bai hat khi ten playlist bi thay doi
-    public void editSongInPlaylsit(Context context, String oldName, String newName){
+    public void editSongInPlaylsit(Context context, String oldName, String newName) {
         List<SongItem> listSongItemOld = getSongsInPlaylist(context, oldName);
         List<SongItem> listSongItemNew = new ArrayList<SongItem>();
-        if(listSongItemOld != null){
-            for(int i = 0; i < listSongItemOld.size(); i++){
+        if (listSongItemOld != null) {
+            for (int i = 0; i < listSongItemOld.size(); i++) {
                 listSongItemNew.add(listSongItemOld.get(i));
             }
             saveSongItemToPlaylist(context, listSongItemNew, newName);

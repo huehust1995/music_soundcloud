@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash_img"
+        android:src="@drawable/image_splash"
         android:scaleType="centerCrop"/>
 
     <com.github.silvestrpredko.dotprogressbar.DotProgressBar

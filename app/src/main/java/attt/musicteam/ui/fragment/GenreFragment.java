@@ -26,7 +26,7 @@ public class GenreFragment extends Fragment {
     private ViewPager viewPager;
     private PagerAdapter adapter;
 
-    public GenreFragment newInstance(){
+    public GenreFragment newInstance() {
         GenreFragment fragment = new GenreFragment();
         return fragment;
     }
@@ -50,8 +50,8 @@ public class GenreFragment extends Fragment {
         return view;
     }
 
-    public void setCurrentTabFragment(int tabPosition){
-        switch (tabPosition){
+    public void setCurrentTabFragment(int tabPosition) {
+        switch (tabPosition) {
             case 0:
                 viewPager.setCurrentItem(0);
                 break;
@@ -60,6 +60,7 @@ public class GenreFragment extends Fragment {
                 break;
         }
     }
+
     public class PagerAdapter extends FragmentStatePagerAdapter {
         int mNumOfTabs;
 
@@ -70,14 +71,16 @@ public class GenreFragment extends Fragment {
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-           switch (position){
-               case 0: GenreMusicFragment musicFragment = new GenreMusicFragment().newInstance();
-                   return musicFragment;
-               case 1: GenreAudioFragment audioFragment = new GenreAudioFragment().newInstance();
-                   return audioFragment;
-               default:
-                   return null;
-           }
+            switch (position) {
+                case 0:
+                    GenreMusicFragment musicFragment = new GenreMusicFragment().newInstance();
+                    return musicFragment;
+                case 1:
+                    GenreAudioFragment audioFragment = new GenreAudioFragment().newInstance();
+                    return audioFragment;
+                default:
+                    return null;
+            }
         }
 
         @Override

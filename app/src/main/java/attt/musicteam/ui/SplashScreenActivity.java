@@ -11,22 +11,24 @@ import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
-import org.json.JSONObject;
+import java.util.List;
 
 import attt.musicteam.R;
 import attt.musicteam.sharepreference.ConnectionSharePreference;
 import attt.musicteam.sharepreference.NowPlayingSharePreference;
-import attt.musicteam.utils.AppController;
-import attt.musicteam.utils.JsonUTF8Request;
+import attt.musicteam.ui.api.music.MusicRequest;
+import attt.musicteam.ui.api.search.SearchRequest;
+import attt.musicteam.ui.item.SongItem;
 import attt.musicteam.utils.ReadWriteData;
 import attt.musicteam.utils.Utilities;
 import attt.musicteam.utils.Variables;
+
+import static android.R.id.message;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -41,7 +43,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     //timeout
     public int timeoutValue;
     public ConnectionSharePreference connectionSp;
-    private static final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,24 +80,18 @@ public class SplashScreenActivity extends AppCompatActivity {
             clientId = Variables.CLIENT_ID;
             String url = url1 + genreName + url2 + clientId;
 
-            JsonUTF8Request request = new JsonUTF8Request(Request.Method.GET, url,
-                    null, new Response.Listener<JSONObject>() {
+            new MusicRequest().getDataAPI(url).setMusicListener(new MusicRequest.MusicListener() {
                 @Override
-                public void onResponse(JSONObject response) {
+                public void onSuccess(String message) {
                     ReadWriteData rw = new ReadWriteData();
-                    rw.writeHomeData(response.toString());
+                    rw.writeHomeData(message);
                     Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                     startActivity(intent);
                     countDownTimer.cancel();
                     finish();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
             });
-            AppController.getInstance().addToRequestQueue(request, "");
+
         }
         checkPermissions();
     }

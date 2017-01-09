@@ -77,7 +77,7 @@ public class GenreDetailFragment extends Fragment {
     public NowPlayingSharePreference nowPlayingSp;
     public HistorySharePreference historySong;
 
-    public GenreDetailFragment newInstance(GenreItem genreItem){
+    public GenreDetailFragment newInstance(GenreItem genreItem) {
         GenreDetailFragment fragment = new GenreDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable("genreItem", genreItem);
@@ -94,7 +94,7 @@ public class GenreDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_genre_detail, null);
+        View view = inflater.inflate(R.layout.fragment_genre_detail, null);
         initComponent(view);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -115,7 +115,7 @@ public class GenreDetailFragment extends Fragment {
         return view;
     }
 
-    public void initComponent(View view){
+    public void initComponent(View view) {
         nowPlayingSp = new NowPlayingSharePreference();
         historySong = new HistorySharePreference();
 
@@ -158,7 +158,7 @@ public class GenreDetailFragment extends Fragment {
 
                     }
                     adapter.notifyDataSetChanged();
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
                 pDialog.dismiss();
@@ -190,7 +190,7 @@ public class GenreDetailFragment extends Fragment {
         });
     }
 
-    public void initDialogPlus(final SongItem songItem, final int position){
+    public void initDialogPlus(final SongItem songItem, final int position) {
         Holder holder = new ViewHolder(R.layout.item_select_home);
         dialogPlus = DialogPlus.newDialog(getActivity())
                 .setContentHolder(holder)
@@ -232,7 +232,7 @@ public class GenreDetailFragment extends Fragment {
         });
     }
 
-    public void initInformationDialog(SongItem songItem){
+    public void initInformationDialog(SongItem songItem) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.dialog_track_information, null);
         TextView songName = (TextView) view.findViewById(R.id.song_name);
@@ -259,8 +259,8 @@ public class GenreDetailFragment extends Fragment {
         builder.show();
     }
 
-    public void playMusic(SongItem songItem, int position){
-        if(nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.NOT_PLAYING){
+    public void playMusic(SongItem songItem, int position) {
+        if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.NOT_PLAYING) {
             historySong.addHistorySong(getActivity(), songItem);
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
@@ -269,7 +269,7 @@ public class GenreDetailFragment extends Fragment {
             intent.putExtra("toolbarName", genreItem.getGenreName());
             getActivity().startActivity(intent);
             getActivity().finish();
-        } else if(nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING){
+        } else if (nowPlayingSp.getStatePlaying(getActivity()) == NowPlayingSharePreference.IS_PLAYING) {
             Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
             intent.putExtra("songItem", songItem);
             intent.putExtra("position", position);

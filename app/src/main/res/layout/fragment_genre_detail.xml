@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="attt.musicteam.ui.fragment.GenreDetailActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +39,5 @@
     <ListView
         android:id="@+id/genre_detail_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:listSelector="@drawable/ripple_effect"></ListView>
+        android:layout_height="match_parent"></ListView>
 </LinearLayout>

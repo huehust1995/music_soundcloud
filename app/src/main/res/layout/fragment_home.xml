@@ -9,7 +9,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary">
 
-
         <TextView
             android:text="Home"
             android:textSize="20sp"
@@ -18,17 +17,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="20dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp">
 
+            <ImageButton
+                android:id="@+id/btn_now_playing"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/btn_now_playing_press"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
     </RelativeLayout>
-
-    <View android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@drawable/toolbar_drop_shadow"/>
-
     <ListView
         android:background="#fff"
         android:divider="@null"
         android:id="@+id/home_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
+
+    <View android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/toolbar_drop_shadow"/>
+
 </LinearLayout>

@@ -115,7 +115,6 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
                 switch (state) {
-                    case TelephonyManager.CALL_STATE_OFFHOOK:
                     case TelephonyManager.CALL_STATE_RINGING:
                         if (mediaPlayer != null) {
                             if (mediaPlayer.isPlaying()) mediaPlayer.pause();
@@ -165,7 +164,6 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
         mediaPlayer.pause();
         btnPlay.setImageResource(R.drawable.btn_play);
     }
-
 
     public void initComponent() {
         playThread = new Thread();
@@ -365,7 +363,6 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
                 }
             }
         });
-
     }
 
     public void initSharePreferences() {
@@ -417,7 +414,6 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
 
     //play bai hat trong danh sach
     public void playSong() {
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -575,7 +571,6 @@ public class PlayMusicActivity extends AppCompatActivity implements MediaPlayer.
                 playSong();
             }
         }
-
     }
 
     @Override

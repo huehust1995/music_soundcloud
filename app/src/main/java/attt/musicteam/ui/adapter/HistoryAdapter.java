@@ -25,7 +25,7 @@ public class HistoryAdapter extends BaseAdapter {
     public List<SongItem> listSongs;
     public Context context;
 
-    public HistoryAdapter(Context context, List<SongItem> listSongs){
+    public HistoryAdapter(Context context, List<SongItem> listSongs) {
         this.listSongs = listSongs;
         this.context = context;
     }
@@ -45,7 +45,7 @@ public class HistoryAdapter extends BaseAdapter {
         return 0;
     }
 
-    public class Holder{
+    public class Holder {
         ImageView imgCover;
         TextView tvName;
         TextView tvSinger;
@@ -56,7 +56,7 @@ public class HistoryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        if(convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.adapter_history, parent, false);
             holder = new Holder();
             holder.imgCover = (ImageView) convertView.findViewById(R.id.img_cover);

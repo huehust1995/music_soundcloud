@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/img_cover"
-        android:src="@drawable/taylor"
+        android:src="@drawable/ic_soundcloud"
         android:layout_width="60dp"
         android:layout_height="60dp" />
 

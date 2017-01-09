@@ -156,13 +156,8 @@ public class ProgressBarCircularIndeterminate extends CustomView {
         transparentPaint.setColor(getResources().getColor(android.R.color.transparent));
         transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         temp.drawCircle(getWidth()/2, getHeight()/2, (getWidth()/2)-Utils.dpToPx(4, getResources()), transparentPaint);
-
         canvas.drawBitmap(bitmap, 0, 0, new Paint());
     }
-
-
-
-
 
     // Set color of background
     public void setBackgroundColor(int color){

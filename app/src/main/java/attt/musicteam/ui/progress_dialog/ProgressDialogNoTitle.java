@@ -65,8 +65,6 @@ public class ProgressDialogNoTitle extends android.app.Dialog{
             ProgressBarCircularIndeterminate progressBarCircularIndeterminate = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
             progressBarCircularIndeterminate.setBackgroundColor(progressColor);
         }
-
-
     }
 
     @Override

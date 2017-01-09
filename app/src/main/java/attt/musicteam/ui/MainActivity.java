@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public Fragment fragment;
     public FragmentTransaction transaction;
     public LayoutBackground setLayoutBackground;
-    public String state;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

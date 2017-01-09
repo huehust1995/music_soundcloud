@@ -43,7 +43,7 @@ public class ReadWriteData {
     }
 
     public void writeHomeData(String data) {
-        File folder = new File("/sdcard/Android/data/mdc.musicplayer");
+        File folder = new File("/sdcard/Android/data/musicplayer");
         folder.mkdir();
         File file = new File(folder, Variables.HOME);
         try {
@@ -61,7 +61,7 @@ public class ReadWriteData {
     public String readHomeData() {
         String data = "";
         String str = "";
-        String uriFolder = "/sdcard/Android/data/mdc.musicplayer";
+        String uriFolder = "/sdcard/Android/data/musicplayer";
         StringBuffer stringBuffer = new StringBuffer();
         File folder = new File(uriFolder);
         folder.mkdir();
@@ -110,7 +110,7 @@ public class ReadWriteData {
 
 
     public void writeGenreData(String data) {
-        File folder = new File("/sdcard/Android/data/mdc.musicplayer");
+        File folder = new File("/sdcard/Android/data/musicplayer");
         folder.mkdir();
         File file = new File(folder, Variables.GENRE);
         try {
